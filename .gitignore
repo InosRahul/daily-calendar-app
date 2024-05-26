@@ -1,0 +1,45 @@
+# Binaries for programs and plugins
+/bin
+/pkg
+/vendor
+
+# .exe
+*.exe
+*.dll
+*.so
+*.dylib
+calendar.db
+
+# .go files that might be generated during development
+*.out
+*.test
+
+# Temporary files
+*.tmp
+*.swp
+*~
+
+# IDE and editor configuration files
+.idea/
+.vscode/
+
+# Output of the go build command
+*.s
+*.o
+*.a
+
+# Dependency directories
+/vendor/
+
+# Logs
+*.log
+
+# OS generated files #
+######################
+.DS_Store*
+ehthumbs.db
+Icon?
+Thumbs.db
+
+# GoReleaser
+*-checksum.txt
