@@ -3,6 +3,9 @@
 /pkg
 /vendor
 
+*/node_modules
+package-lock.json
+
 # .exe
 *.exe
 *.dll
