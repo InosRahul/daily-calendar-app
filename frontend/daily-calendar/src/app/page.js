@@ -31,7 +31,7 @@ const Home = () => {
 
   const handleMeetingUpdated = (updatedMeeting) => {
     setMeetings((prevMeetings) =>
-      prevMeetings.map((meeting) => (meeting.id === updatedMeeting.id ? updatedMeeting : meeting))
+      prevMeetings?.map((meeting) => (meeting.id === updatedMeeting.id ? updatedMeeting : meeting))
     );
   };
 

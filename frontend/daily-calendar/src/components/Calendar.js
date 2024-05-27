@@ -29,6 +29,11 @@ const CalendarDay = styled.td`
 const Calendar = ({ selectedDate, onDateChange, onMeetingsFetched }) => {
   const [currentDate, setCurrentDate] = React.useState(selectedDate);
 
+  useEffect(() => {
+    setCurrentDate(selectedDate);
+    fetchMeetings(selectedDate)
+  }, [selectedDate]);
+
   const handlePrevMonth = async () => {
     const prevMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1);
     onDateChange(prevMonthDate);
@@ -64,16 +69,14 @@ const Calendar = ({ selectedDate, onDateChange, onMeetingsFetched }) => {
                     .split("T")[0];
     try {
         const response = await axios.get(`http://localhost:8080/api/meetings?date=${dateString}`);
+        // Handle the response data
+        console.log(response.data);
         onMeetingsFetched(response.data);
+        // You can pass the response data to another function or state to display it in the HourlyBreakdown component
       } catch (error) {
         console.error('Error fetching meetings:', error);
       }
-  }, [onMeetingsFetched])
-
-  useEffect(() => {
-    setCurrentDate(selectedDate);
-    fetchMeetings(selectedDate)
-  }, [selectedDate, fetchMeetings]);
+  }, [])
 
   const renderCalendar = () => {
     const calendar = [];

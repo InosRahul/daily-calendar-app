@@ -28,7 +28,7 @@ const HourContainer = styled.div`
   background-color: ${(props) => (props.hasMeeting ? '#f0f0f0' : 'transparent')};
 `;
 
-const HourlyBreakdown = ({ selectedDate, meetings, onDeleteMeeting, onMeetingUpdated }) => {
+const HourlyBreakdown = ({ selectedDate, meetings, onDeleteMeeting, onMeetingCreated, onMeetingUpdated }) => {
   const hours = Array.from({ length: 24 }, (_, i) => i);
   const [showForm, setShowForm] = useState(false);
   const [editingMeeting, setEditingMeeting] = useState(null);
@@ -58,36 +58,36 @@ const HourlyBreakdown = ({ selectedDate, meetings, onDeleteMeeting, onMeetingUpd
               meeting={meetingAtHour}
               onDelete={onDeleteMeeting}
               onEdit={handleEditMeeting}
-            />
-          )}
-        </HourContainer>
-      );
-    });
+              />
+            )}
+          </HourContainer>
+        );
+      });
+    };
+  
+    return (
+      <BreakdownContainer>
+        <AddButton onClick={() => setShowForm(true)}>+</AddButton>
+        {showForm && !editingMeeting && (
+          <CreateMeetingForm
+            onClose={() => setShowForm(false)}
+            onMeetingCreated={onMeetingCreated}
+          />
+        )}
+        {showForm && editingMeeting && (
+          <UpdateMeetingForm
+            onClose={() => {
+              setShowForm(false);
+              setEditingMeeting(null);
+            }}
+            onMeetingUpdated={handleUpdateMeeting}
+            meeting={editingMeeting}
+          />
+        )}
+        <h2>Breakdown for {selectedDate.toDateString()}</h2>
+        <div>{renderHourSlots()}</div>
+      </BreakdownContainer>
+    );
   };
-
-  return (
-    <BreakdownContainer>
-      <AddButton onClick={() => setShowForm(true)}>+</AddButton>
-      {showForm && !editingMeeting && (
-        <CreateMeetingForm
-          onClose={() => setShowForm(false)}
-          onMeetingCreated={onMeetingUpdated}
-        />
-      )}
-      {showForm && editingMeeting && (
-        <UpdateMeetingForm
-          onClose={() => {
-            setShowForm(false);
-            setEditingMeeting(null);
-          }}
-          onMeetingUpdated={handleUpdateMeeting}
-          meeting={editingMeeting}
-        />
-      )}
-      <h2>Breakdown for {selectedDate.toDateString()}</h2>
-      <div>{renderHourSlots()}</div>
-    </BreakdownContainer>
-  );
-};
-
-export default HourlyBreakdown;
+  
+  export default HourlyBreakdown;
